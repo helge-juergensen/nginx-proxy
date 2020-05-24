@@ -50,6 +50,7 @@ upstream {{ .Upstream }} {
 		include uwsgi_params;
 		{{ end }}
 		proxy_pass {{ .Proto }}://{{ .Upstream }};
+		proxy_set_header X-Script-Name {{ .Path }};
 		{{ if (exists (printf "/etc/nginx/htpasswd/%s" .Host)) }}
 		auth_basic	"Restricted {{ .Host }}";
 		auth_basic_user_file	{{ (printf "/etc/nginx/htpasswd/%s" .Host) }};
